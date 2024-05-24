@@ -1,0 +1,13 @@
+# rodando migration
+migrate --path db/migration --database "postgresql://postgres:postgres@localhost:5432/go_finance?sslmode=disable" --verbose up
+
+#Acessar bash do container postgres
+docker exec -it postgres /bin/sh
+
+#Rodando as migration para insert, update, delete
+docker run --rm -v $(pwd):/src -w /src kjconroy/sqlc generate
+
+#Dependencias do GO
+go mod init github.com/GustavoNoronha0/go_finance
+go mod tidy
+
